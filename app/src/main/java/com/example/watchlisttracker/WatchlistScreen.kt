@@ -37,7 +37,6 @@ fun WatchlistItemRow(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // название и описание
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -51,14 +50,12 @@ fun WatchlistItemRow(
                 )
             }
 
-            // статус и кнопка
             Column {
                 Text(
                     text = item.status.name,
                     style = MaterialTheme.typography.labelLarge
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                // Кнопка для смены статуса
                 Button(
                     onClick = { onStatusToggle(item.id) }
                 ) {
@@ -105,7 +102,6 @@ fun FilterRow(
             label = { Text("ALL") },
             modifier = Modifier.padding(end = 8.dp)
         )
-        // Фильтры для каждого Status
         Status.entries.forEach { status ->
             FilterChip(
                 selected = currentFilter == status,
@@ -128,14 +124,12 @@ fun WatchlistScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Заголовок
         Text(
             text = "Anime Tracker",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Поле поиска
         OutlinedTextField(
             value = uiState.query,
             onValueChange = onQueryChange,
@@ -144,17 +138,14 @@ fun WatchlistScreen(
             singleLine = true
         )
 
-        // Статистика
         StatisticsRow(items = uiState.items)
 
-        // Фильтры
         FilterRow(
             currentFilter = uiState.filter,
             onFilterChange = onFilterChange
         )
 
-        // Фильтруем элементы
-        val filteredItems = uiState.items
+                val filteredItems = uiState.items
             .filter { item ->
                 uiState.filter == null || item.status == uiState.filter
             }

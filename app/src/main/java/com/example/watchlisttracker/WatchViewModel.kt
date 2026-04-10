@@ -7,12 +7,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class WatchViewModel : ViewModel() {
-    //храним текущее состояние
     private val _uiState = MutableStateFlow(WatchlistUiState(items = loadInitialItems()))
 
     val uiState: StateFlow<WatchlistUiState> = _uiState.asStateFlow()
 
-    //списочек аниме + их описание
     private fun loadInitialItems(): List<WatchlistItem> {
         return listOf(
             WatchlistItem(
@@ -59,14 +57,12 @@ class WatchViewModel : ViewModel() {
         }
     }
 
-    //фильтруем по статусу
     fun setFilter(status: Status?) {
         _uiState.update { currentState ->
             currentState.copy(filter = status)
         }
     }
 
-    //ищем в поиске нужное аниме и меняем статус
     fun toggleStatus(itemId: Int) {
         _uiState.update { currentState ->
             val updatedItems = currentState.items.map { item ->
